@@ -1,0 +1,37 @@
+services:
+  db:
+    image: postgres
+    container_name: postgres_db
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=/run/secrets/DB_PASSWORD
+      - POSTGRES_DB=${DB_NAME}
+    secrets:
+      - DB_PASSWORD
+    networks:
+      - net1
+    mem_limit: 512m
+    cpus: 0.5
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    environment:
+      - POSTGRES_HOST=${DB_HOST}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=/run/secrets/DB_PASSWORD
+      - POSTGRES_DB=${DB_NAME}
+    secrets:
+      - DB_PASSWORD
+    networks:
+      - net1
+    mem_limit: 512m
+    cpus: 0.5
+secrets:
+  DB_PASSWORD:
+    file: ./db_password.txt
+networks:
+  net1:
+    external: true
