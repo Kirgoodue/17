@@ -10,8 +10,6 @@ services:
       - DB_PASSWORD
     networks:
       - net1
-    mem_limit: 512m
-    cpus: 0.5
   app:
     build: 
       context: .
