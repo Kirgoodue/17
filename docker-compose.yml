@@ -4,7 +4,7 @@ services:
     container_name: postgres_db
     environment:
       - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=/run/secrets/DB_PASSWORD
+      - POSTGRES_PASSWORD_FILE=/run/secrets/DB_PASSWORD
       - POSTGRES_DB=${DB_NAME}
     secrets:
       - DB_PASSWORD
@@ -19,14 +19,12 @@ services:
     environment:
       - POSTGRES_HOST=${DB_HOST}
       - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=/run/secrets/DB_PASSWORD
+      - POSTGRES_PASSWORD_FILE=/run/secrets/DB_PASSWORD
       - POSTGRES_DB=${DB_NAME}
     secrets:
       - DB_PASSWORD
     networks:
       - net1
-    mem_limit: 512m
-    cpus: 0.5
 secrets:
   DB_PASSWORD:
     file: ./db_password.txt
