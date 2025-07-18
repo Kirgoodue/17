@@ -23,6 +23,8 @@ jobs:
       - name: Run tests
         run: |
           docker-compose -f docker-compose.yml up -d
+          docker-compose -f docker-compose.yml exec -T app ./wait-for-it.sh postgres_db:5432 --timeout=30 --
+          docker-compose -f docker-compose.yml logs db
           docker-compose -f docker-compose.yml exec -T app python test_app.py
           docker-compose -f docker-compose.yml down
 
