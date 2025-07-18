@@ -4,12 +4,10 @@ import os
 
 class TestDatabaseConnection(unittest.TestCase):
     def test_db_connection(self):
-        with open('/run/secrets/DB_PASSWORD', 'r') as file:
-            db_password = file.read().strip()
         conn = psycopg2.connect(
             host=os.getenv("POSTGRES_HOST"),
             user=os.getenv("POSTGRES_USER"),
-            password=db_password,
+            password=os.getenv("POSTGRES_PASSWORD"),
             database=os.getenv("POSTGRES_DB"),
             port=5432
         )
