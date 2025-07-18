@@ -32,4 +32,4 @@ secrets:
     file: ./db_password.txt
 networks:
   net1:
-    external: true
+    driver: bridge
