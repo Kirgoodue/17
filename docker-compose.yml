@@ -13,7 +13,9 @@ services:
     mem_limit: 512m
     cpus: 0.5
   app:
-    image: kiradmbt/docker-lesson17:latest
+    build: 
+      context: .
+      dockerfile: Dockerfile
     depends_on:
       - db
     environment:
